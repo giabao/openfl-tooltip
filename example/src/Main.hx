@@ -1,22 +1,30 @@
-package;
-
 import openfl.display.Sprite;
 import openfl.Lib;
-import com.sandinh.ToolTip;
 import openfl.text.TextField;
+import openfl.text.TextFieldAutoSize;
 import openfl.events.MouseEvent;
 
-class Main extends Sprite {
-    var tip = new ToolTip();
+using com.sandinh.TipTools;
 
+class Main extends Sprite {
 	public function new() {
 		super();
-		
         var txt = new TextField();
         txt.text = "Hello OpenFL Tooltip";
-        txt.x = 100; txt.y = 100;
+        txt.border = true;
 		addChild(txt);
         
-        txt.addEventListener(MouseEvent.MOUSE_OVER, function(e) tip.show(txt, "My Title", "Tooltip content"));
+        txt.regisTip("Tip 1");
+        
+        txt = new TextField();
+        txt.text = "OpenFL Tooltip 2";
+        txt.x = 120; txt.y = 120;
+        txt.autoSize = TextFieldAutoSize.LEFT;
+        txt.border = true;
+		addChild(txt);
+        
+        txt.regisTip("Tip 2", true);
+        
+        txt.showTip();
 	}
 }
