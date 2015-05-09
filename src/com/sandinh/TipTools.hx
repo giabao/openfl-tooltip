@@ -17,6 +17,9 @@ import openfl.events.Event;
 import motion.Actuate;
 import openfl.Lib;
 
+using Lambda;
+
+/** Hold ToolTip data */
 private class TipData {
     public var htmlText(default, null): String;
     public var fixedPos(default, null): Bool;
@@ -29,16 +32,21 @@ private class TipData {
     }
 }
 
+/** Should use as extension methods for DisplayObject */
 class TipTools {
+    /** The only Tip instance */
     static var tip = new Tip();
+    /** Map from target DisplayObject that is register via `regisTip`  to TipData */
     static var datas = new ObjectMap<DisplayObject, TipData>();
     
-    /** should use as extension method.
+    /** Register tip for the `target` DisplayObject.
      * @param fixedPos -
      *      + true: only register the tip data, you must call `showTip` to show & `hideTip` to hide the tooltip.
-     *      + false: tooltip will be hide when mouse out of target & move when mouse move.
-     *      + Note: if fixedPos == false & target is not added to stage & will never been added to stage
-     *          then may have memory leak because the event listener onAddedToStage will not be removed. */
+     *      + false: tooltip will be managed:
+     *          - if target is already on stage, it will be setup so that the tip will be show when MOUSE_OVER `target`,
+     *            hide when mouse out of target & move when mouse move.
+     *          - Note if target is not added to stage & will never been added to stage
+     *            then may have memory leak because the event listener onAddedToStage will not be removed. */
     public static function regisTip(target: DisplayObject, htmlText: String, fixedPos: Bool = false, delay: Float = 0) {
         var d = new TipData(htmlText, fixedPos, delay);
         datas.set(target, d);
@@ -53,16 +61,28 @@ class TipTools {
         }
     }
     
-    public static inline function unregisTip(target: DisplayObject) {
+    /** unregister tip data for `target`.
+     * Also `free` the tip if its current target is `target` */
+    public static function unregisTip(target: DisplayObject) {
+        tip.free(target);
         datas.remove(target);
+        target.removeEventListener(e.type, onAddedToStage);
+        target.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+    }
+
+    /** unregisTip for multi targets */
+    public static inline function unregisTips(targets: Array<DisplayObject>) {
+        targets.iter(unregisTip);
     }
     
+    /** show tooltip that is registered for `target` */
     public static function showTip(target: DisplayObject) {
         var d: TipData = datas.get(target);
         if (d == null) return;
         tip.show(target, d.htmlText, d.fixedPos, d.delay);
     }
     
+    /** hide the (only) tooltip */
     public static inline function hideTip(target: DisplayObject) {
         tip.hide();
     }
@@ -82,7 +102,7 @@ class TipTools {
         var target = cast (e.target, DisplayObject);
         var d: TipData = datas.get(target);
         if (d == null) {
-            target.removeEventListener(MouseEvent.MOUSE_OVER, onMouseOver);
+            unregisTip(target);
             return;
         }
         
@@ -90,6 +110,9 @@ class TipTools {
     }
 }
 
+/** The simple Tooltip implementation.
+ * You could use this class directly.
+ * But the recommended way is using TipTools class (as extension method for DisplayObject) */
 class Tip extends Sprite {
     var bgColors: Array<UInt> = [0x131412, 0x131412];
     static inline var bgAlpha = 1;
@@ -176,7 +199,11 @@ class Tip extends Sprite {
         Actuate.tween(this, 0.5, { alpha: 0 } ).autoVisible(false).onComplete(free);
     }
     
-    public function free() {
+    /** call free() to free (destroy) the current `this.target`.
+     *  call free(someTarget) to free ONLY IF the current target is == someTarget */
+    public function free(onlyTarget: DisplayObject = null) {
+        if (onlyTarget != null && onlyTarget != target) return;
+        
         //nothing to cleanup
         if (target == null) return;
         
@@ -197,6 +224,7 @@ class Tip extends Sprite {
         e.target.removeEventListener(e.type, onMouseOut);
         hide();
     }
+    
     function onMouseMove(e: MouseEvent) {
         adjustPosition(Lib.current.mouseX, Lib.current.mouseY);
     }

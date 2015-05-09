@@ -4,8 +4,8 @@
   "license"      : "MIT",
   "tags"         : ["cross", "openfl", "flash", "html5", "cpp", "ui"],
   "description"  : "A Standalone Tooltip class for OpenFL.",
-  "version"      : "1.0.0",
-  "releasenote"  : "First release.",
+  "version"      : "1.0.1",
+  "releasenote"  : "Add haxe doc & fixed a memory leak error.",
   "classPath"    : "src",
   "contributors" : ["SanDinh.com"],
   "dependencies" : {
