@@ -1,2 +1,4 @@
 .idea/sbt.xml
 .idea/workspace.xml
+example/bin/
+out/
