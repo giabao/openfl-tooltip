@@ -1,0 +1,15 @@
+{
+  "name"         : "openfl-tooltip",
+  "url"          : "https://github.com/giabao/openfl-tooltip",
+  "license"      : "MIT",
+  "tags"         : ["cross", "openfl", "flash", "html5", "cpp", "ui"],
+  "description"  : "A Standalone Tooltip class for OpenFL.",
+  "version"      : "1.0.0",
+  "releasenote"  : "First release. Re-implement the as3 Tooltip class of Duncan Reid ( http://www.hy-brid.com )",
+  "classPath"    : "src",
+  "contributors" : ["SanDinh.com"],
+  "dependencies" : {
+    "openfl"     : "",
+    "actuate"    : ""
+  }
+}
