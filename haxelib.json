@@ -4,8 +4,8 @@
   "license"      : "MIT",
   "tags"         : ["cross", "openfl", "flash", "html5", "cpp", "ui"],
   "description"  : "A Standalone Tooltip class for OpenFL.",
-  "version"      : "2.0.0",
-  "releasenote"  : "Simplify TipTools implementation & add examples to simulate memory leak problem",
+  "version"      : "3.0.0",
+  "releasenote"  : "remove `target` param of TipTools.hideTip",
   "classPath"    : "src",
   "contributors" : ["SanDinh.com"],
   "dependencies" : {

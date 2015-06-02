@@ -38,19 +38,13 @@ class TipTools {
     }
     
     /** hide the (only) tooltip */
-    public static inline function hideTip(target: DisplayObject) {
-        tip.hide();
-    }
+    public static inline function hideTip() tip.hide();
 
     /** free (destroy) the tip if its current target is `target` */
-    public static inline function freeTip(target: DisplayObject) {
-        tip.free(target);
-    }
+    public static inline function freeTip(target: DisplayObject) tip.free(target);
 
     /** freeTip for multi targets */
-    public static inline function freeTips(targets: Array<DisplayObject>) {
-        targets.iter(freeTip);
-    }    
+    public static inline function freeTips(targets: Array<DisplayObject>) targets.iter(freeTip);
 }
 
 /** The simple Tooltip implementation.

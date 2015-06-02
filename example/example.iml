@@ -15,13 +15,13 @@
     <orderEntry type="jdk" jdkName="Haxe 3.2.0" jdkType="Haxe toolkit" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
-      <library name="haxelib|C:/HaxeToolkit/haxe/lib/openfl/3,0,3">
+      <library name="haxelib|C:/HaxeToolkit/haxe/lib/openfl/3,0,8">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../../../openfl/3,0,3" />
+          <root url="file://$MODULE_DIR$/../../../openfl/3,0,8" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="file://$MODULE_DIR$/../../../openfl/3,0,3" />
+          <root url="file://$MODULE_DIR$/../../../openfl/3,0,8" />
         </SOURCES>
       </library>
     </orderEntry>
