@@ -22,8 +22,13 @@ using Lambda;
 /** Should use as extension methods for DisplayObject */
 class TipTools {
     /** The only Tip instance */
-    static var tip = new Tip();
-    
+    static var tip(get, never): Tip;
+    static var _tip: Tip;
+    static function get_tip(): Tip {
+        if (_tip == null) _tip = new Tip();
+        return _tip;
+    }
+
     /** tooltip will be show when MOUSE_OVER `target`, hide when mouse out of target & move when mouse move.
      * Note: if you repeatly call this method for a target then there will be a memory proplem!*/
     public static function tooltip(target: DisplayObject, htmlText: String, delay: Float = 0) {
