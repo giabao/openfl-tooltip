@@ -4,8 +4,8 @@
   "license"      : "MIT",
   "tags"         : ["cross", "openfl", "flash", "html5", "cpp", "ui"],
   "description"  : "A Standalone Tooltip class for OpenFL.",
-  "version"      : "3.0.0",
-  "releasenote"  : "remove `target` param of TipTools.hideTip",
+  "version"      : "3.0.1",
+  "releasenote"  : "lazy init static var TipTools.tip",
   "classPath"    : "src",
   "contributors" : ["SanDinh.com"],
   "dependencies" : {
